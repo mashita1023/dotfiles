@@ -1,0 +1,23 @@
+[user]
+	name = Toshichika Mashimo
+	email = mashita1023@gmail.com
+[core]
+	editor = emacs -nw
+	ignorecase = false
+	quotepath = false
+	autocrlf = false
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+[status]
+	showUntrackedFiles = all
+[merge]
+	conflictStyle = diff3
+[pull]
+	ff = only
+[push]
+	default = current
+[credential]
+	helper = cache --timeout=86400

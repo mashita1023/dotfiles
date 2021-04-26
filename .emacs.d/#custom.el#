@@ -1,0 +1,3 @@
+(setq custom-file (locate-user-emacs-file "custom.el"))
+(unless (file-exists-p custom-file)
+  (write-region "" nil custom-file)
