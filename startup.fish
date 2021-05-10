@@ -25,7 +25,7 @@ function startup_shell
   brew bundle install --global
 
   ## nvm
-  fisher install jorgebucaran/fish-nvm
+  fisher install jorgebucaran/nvm.fish
   nvm install lts
 
   ## powerline-style

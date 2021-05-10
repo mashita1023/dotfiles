@@ -1,9 +1,6 @@
 # brew
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
-# nvm
-nvm use lts
-
 # tmux
 command tmux
 
@@ -28,6 +25,8 @@ abbr -a ll ls -l
 abbr -a la ls -a
 abbr -a l ls -CF
 
+# gcc
+set -x PATH $PATH /home/linuxbrew/.linuxbrew/bin/gcc
 # golang
 set -x PATH $PATH ~/go/bin
 
