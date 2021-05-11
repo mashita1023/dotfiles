@@ -25,8 +25,9 @@ abbr -a ll ls -l
 abbr -a la ls -a
 abbr -a l ls -CF
 
+abbr -a gcc g++-10
 # gcc
-set -x PATH $PATH /home/linuxbrew/.linuxbrew/bin/gcc
+set -x PATH $PATH /home/linuxbrew/.linuxbrew/bin/g++-10
 # golang
 set -x PATH $PATH ~/go/bin
 
