@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: gcd-lcm
+# key: gcd-lcm
+# --
+import functools
+import math
+
+def lcm2(x, y):
+    gcd = math.gcd(x, y)
+return gcd * (x // gcd) * (y // gcd)
+
+gcd = lambda l: functools.reduce(math.gcd, l)
+lcm = lambda l: functools.reduce(lcm2, l)

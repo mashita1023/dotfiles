@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: input
+# key: input
+# --
+import sys
+def input():
+    return sys.stdin.readline()[:-1]

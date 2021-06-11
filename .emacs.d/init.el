@@ -128,7 +128,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
   '(package-selected-packages
-     '(cmake-ide dracula-theme flycheck-golangci-lint flycheck company-go go-mode magit editorconfig vue-mode undo-tree neotree leaf-keywords hydra git-gutter el-get auto-complete all-the-icons)))
+     '(jedi cmake-ide dracula-theme flycheck-golangci-lint flycheck company-go go-mode magit editorconfig vue-mode undo-tree neotree leaf-keywords hydra git-gutter el-get auto-complete all-the-icons)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -136,6 +136,14 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; snippet
+(require 'yasnippet)
+(setq yas-snippet-dirs
+  '("~/.emacs.d/snippets"))
+(yas-global-mode 1)
+(define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
+(define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+(define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
 ;; vue-mode
 
 ;; editorconfig

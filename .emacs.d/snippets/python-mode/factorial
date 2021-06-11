@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: factorial
+# key: factorial
+# --
+def factorial(n):
+    if n >= MOD:
+        return 0
+    res = 1
+    for i in range(2, n + 1):
+        res = res * i % MOD
+    return res

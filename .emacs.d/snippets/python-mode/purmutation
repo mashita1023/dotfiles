@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: purmutation
+# key: purmutation
+# --
+def perm(n, r):
+    if n >= MOD:
+        return 0
+    res = 1
+    for i in range(n - r + 1, n + 1):
+        res = res * i % MOD
+    return res

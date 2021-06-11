@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: space-input
+# key: space-input
+# --
+l = list(map(int, input().split()))

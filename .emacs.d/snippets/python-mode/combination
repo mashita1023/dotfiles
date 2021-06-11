@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: combination
+# key: combination
+# --
+def comb(n, r):
+    return (perm(n, r) * modinv(factorial(r))) % MOD

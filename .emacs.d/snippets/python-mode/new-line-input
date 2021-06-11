@@ -1,0 +1,5 @@
+# key: new-line-input
+# name: new-line-input
+# --
+n = int(input())
+l = [int(input()) for i in range(n)]
