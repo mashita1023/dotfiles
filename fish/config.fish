@@ -45,3 +45,11 @@ end
 function fish_user_key_bindings
   bind \cg ghq_fzf_repo
 end
+
+# pyenv
+set -x PYENV_ROOT $HOME/.pyenv
+set -x PATH $PYENV_ROOT/bin $PATH
+pyenv init - | source
+
+# nodebrew
+set -x PATH $HOME/.nodebrew/current/bin $PATH

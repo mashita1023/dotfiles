@@ -14,10 +14,10 @@ function proxy
 		set -gx https_proxy $proxy
 		set -gx HTTP_PROXY $proxy
 		set -gx HTTPS_PROXY $proxy
-		
-		npm -g config set proxy http://proxy.nagaokaut.ac.jp:8080
-		npm -g config set proxy https-proxy http://proxy.nagaokaut.ac.jp:8080
-		npm -g config set registry http://registry.npmjs.org/
+
+#		npm -g config set proxy http://proxy.nagaokaut.ac.jp:8080
+#		npm -g config set proxy https-proxy http://proxy.nagaokaut.ac.jp:8080
+#		npm -g config set registry http://registry.npmjs.org/
 
 		git config --global http.proxy $proxy
 		git config --global https.proxy $proxy
@@ -35,10 +35,10 @@ function proxy
 		set -e HTTP_PROXY
 		set -e HTTPS_PROXY
 
-		npm -g config delete proxy
-		npm -g config delete https-proxy
-		npm -g config delete registry
-		
+#		npm -g config delete proxy
+#		npm -g config delete https-proxy
+#		npm -g config delete registry
+
 		git config --global --unset http.proxy
 		git config --global --unset https.proxy
 		git config --global --unset url."https://".insteadOf

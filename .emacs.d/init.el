@@ -1,3 +1,10 @@
+;; proxy
+(setq load-path (append
+		 '("~/.emacs.d/private-conf")
+		 load-path))
+
+(load "proxy" t)
+
 ;; require
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -6,8 +13,27 @@
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 
+;; auto package install
+;(setq byte-compile-warnings '(not cl-functions obsolete))
+;(require 'cl)
+;(defvar installing-package-list
+;  '(
+;     dracula-theme
+;     auto-complete
+;     magit
+;     neotree
+;     all-the-icons
+;     ))
+
+;(package-refresh-contents)
+;(unless package-archive-contents (package-refresh-contents))
+;(dolist (pkg installing-package-list)
+;  (unless (package-installed-p pkg)
+;    (package-install pkg)))
+
 ;; dracula
 (load-theme 'dracula t)
+
 ;; utf-8
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -127,14 +153,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-  '(package-selected-packages
-     '(cmake-ide dracula-theme flycheck-golangci-lint flycheck company-go go-mode magit editorconfig vue-mode undo-tree neotree leaf-keywords hydra git-gutter el-get auto-complete all-the-icons)))
+ '(package-selected-packages
+   '(cmake-ide dracula-theme flycheck-golangci-lint flycheck company-go go-mode magit editorconfig vue-mode undo-tree neotree leaf-keywords hydra git-gutter el-get auto-complete all-the-icons)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 ;; vue-mode
 
