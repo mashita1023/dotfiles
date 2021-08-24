@@ -15,6 +15,7 @@ SETUVAR Z_EXCLUDE:\x5e/home/mashimo\x24
 SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr_dc:docker\x2dcompose
 SETUVAR _fish_abbr_e:emacs\x20\x2dnw
+SETUVAR _fish_abbr_eb:emacs\x20\x2d\x2dbatch\x20\x2df\x20batch\x2dbyte\x2dcompile\x20/home/mashimo/dotfiles/\x2eleaf\x2ed/init\x2eel
 SETUVAR _fish_abbr_g:git
 SETUVAR _fish_abbr_ga:git\x20add
 SETUVAR _fish_abbr_gaa:git\x20add\x20\x2dA
@@ -42,7 +43,7 @@ SETUVAR _fisher_jethrokuan_2F_fzf_files:/home/mashimo/\x2econfig/fish/functions/
 SETUVAR _fisher_jethrokuan_2F_z_files:/home/mashimo/\x2econfig/fish/functions/__z\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/__z_add\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/__z_clean\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/__z_complete\x2efish\x1e/home/mashimo/\x2econfig/fish/conf\x2ed/z\x2efish
 SETUVAR _fisher_jorgebucaran_2F_nvm_2E_fish_files:/home/mashimo/\x2econfig/fish/functions/_nvm_index_update\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/_nvm_list\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/_nvm_version_activate\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/_nvm_version_deactivate\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/nvm\x2efish\x1e/home/mashimo/\x2econfig/fish/conf\x2ed/nvm\x2efish\x1e/home/mashimo/\x2econfig/fish/completions/nvm\x2efish
 SETUVAR _fisher_oh_2D_my_2D_fish_2F_theme_2D_agnoster_files:/home/mashimo/\x2econfig/fish/functions/fish_mode_prompt\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/fish_prompt\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/fish_right_prompt\x2efish
-SETUVAR _fisher_plugins:0rax/fish\x2dbd\x1ejethrokuan/fzf\x1edecors/fish\x2dghq\x1ejethrokuan/z\x1eoh\x2dmy\x2dfish/theme\x2dagnoster\x1eedc/bass\x1ejorgebucaran/nvm\x2efish\x1edracula/fish
+SETUVAR _fisher_plugins:0rax/fish\x2dbd\x1ejethrokuan/fzf\x1ejethrokuan/z\x1eoh\x2dmy\x2dfish/theme\x2dagnoster\x1eedc/bass\x1ejorgebucaran/nvm\x2efish\x1edracula/fish\x1edecors/fish\x2dghq
 SETUVAR fish_color_autosuggestion:BD93F9
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:F8F8F2

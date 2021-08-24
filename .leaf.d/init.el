@@ -1,0 +1,396 @@
+;;; init.el --- My init.el  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2020  Naoya Yamashita
+
+;; Author: Naoya Yamashita <conao3@gmail.com>
+
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; My init.el.
+
+;;; Code:
+
+;; this enables this running method
+;;   emacs -q -l ~/.debug.emacs.d/{{pkg}}/init.el
+(eval-and-compile
+  (when (or load-file-name byte-compile-current-file)
+    (setq user-emacs-directory
+          (expand-file-name
+           (file-name-directory (or load-file-name byte-compile-current-file))))))
+
+(eval-and-compile
+  (customize-set-variable
+   'package-archives '(("org"   . "https://orgmode.org/elpa/")
+                       ("melpa" . "https://melpa.org/packages/")
+                       ("gnu"   . "https://elpa.gnu.org/packages/")))
+  (package-initialize)
+  (unless (package-installed-p 'leaf)
+    (package-refresh-contents)
+    (package-install 'leaf))
+
+  (leaf leaf-keywords
+    :ensure t
+    :init
+    ;; optional packages if you want to use :hydra, :el-get, :blackout,,,
+    (leaf hydra :ensure t)
+    (leaf el-get :ensure t)
+    (leaf blackout :ensure t)
+
+    :config
+    ;; initialize leaf-keywords.el
+    (leaf-keywords-init)))
+
+;; ここにいっぱい設定を書く
+
+(leaf-keys (("C-h"  . backward-delete-char)
+            ("C-/"  . undo)
+            ("M-\\" . help-command)
+            ("M-["  . switch-to-prev-buffer)
+            ("M-]"  . switch-to-next-buffer)))
+
+(leaf leaf
+  :config
+  (leaf leaf-convert :ensure t)
+  (leaf leaf-tree
+    :ensure t
+    :custom((imenu-list-size . 30)
+            (imenu-list-position . 'left))))
+
+(leaf macrostep
+  :ensure t
+  :bind (("C-c e" . macrostep-expand)))
+
+(leaf custom-edit
+  :doc "tools for customizing Emacs and Lisp packages"
+  :tag "builtin" "faces" "help"
+  :custom `((custom-file . ,(locate-user-emacs-file "custom.el"))))
+
+;; define custom properties of buliltin
+(leaf custom-start
+  :doc "define customization properties of buildins"
+  :tag "builtin" "internal"
+  :preface
+  (defun c/redraw-frame nil
+    (interactive)
+    (redraw-frame))
+  :bind (("M-ESC ESC" . c/redraw-frame))
+  :custom '((user-full-name . "Toshichika Mashimo")
+            (user-mail-address . "mashita1023@gmail.com")
+            (user-login-name . "mashita1023")
+            (create-lockfiles . nil)
+            (debug-on-error . t)
+            (init-file-debug . t)
+            (truncate-lines . t)
+            (scroll-bar-mode . nil)
+            (indent-tabs-mode . nil)
+            (electric-pair-mode . t)
+            (auto-save-default . nil)
+            (make-backup-files . nil))
+  :config
+  (defalias 'yes-or-no-p 'y-or-n-p))
+
+;; display line numbers in the left margin
+(leaf linum
+  :doc "display line numbers in the left margin"
+  :tag "builtin"
+  :added "2021-06-21"
+  :init (global-linum-mode 1))
+
+;; delete selection if you insert
+(leaf delselect
+  :doc "delete selection if you insert"
+  :tag "builtin"
+  :global-minor-mode delete-selection-mode)
+
+;; highlight maching paren
+(leaf paren
+  :doc "highlight matching paren"
+  :tag "builtin"
+  :custom ((show-paren-delay . 0.1))
+  :global-minor-mode show-paren-mode)
+
+; read variables in shell
+(leaf exec-path-from-shell
+  :doc "get environment variables such as $PATH from the shell"
+  :req "emacs-27.2"
+  :tag "environment" "unix" "emacs>=24.1"
+  :added "2021-06-21"
+  :url "https://github.com/purcell/exec-path-from-shell"
+  :emacs>= 24.1
+  :ensure t)
+
+;; use git in emacs
+(leaf magit
+  :ensure t
+  :bind ("C-x g" . magit-status))
+
+;;
+(leaf selectrum
+  :ensure t
+  :global-minor-mode t)
+
+;; 
+(leaf which-key
+  :ensure t
+  :global-minor-mode t)
+
+;; undo and redo
+(leaf undo-tree
+  :ensure t
+  :bind (("M-/" . undo-tree-redo)
+         ("C-M-/" . undo-tree-visualize))
+  :global-minor-mode global-undo-tree-mode)
+
+;; 
+(leaf expand-region
+  :ensure t
+  :bind ("C-=" . er/expand-region))
+
+;; emphasize cursor when move buffer
+(leaf beacon
+  :ensure t
+  :require t
+  :global-minor-mode beacon-mode
+  :config
+  (beacon-mode 1))
+
+;; emphasize changes to yank
+(leaf volatile-highlights
+  :ensure t
+  :require t
+  :global-minor-mode volatile-highlights-mode
+  :config
+  (volatile-highlights-mode t))
+
+;; display indent
+(leaf highlight-indent-guides
+  :ensure t
+  :require t
+  :global-minor-mode highlight-indent-guides-mode
+  :custom
+  (highlight-indent-guides-method . 'character)
+  (highlight-indent-guides-auto-character-face-perc . 20)
+  (highlight-indent-guides-character . ?\|)
+  :hook
+  (prog-mode-hook . highlight-indent-guides-mode))
+
+;; :)
+(leaf all-the-icons
+  :ensure t)
+
+;; watch and select dir and file
+(leaf neotree
+  :ensure t
+  :bind ("C-o" . neotree-toggle))
+
+;; theme
+(leaf doom-themes
+  :ensure t
+  :config
+  (load-theme 'doom-dracula t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (doom-themes-org-config))
+
+;; cursor can be multiple
+(leaf multiple-cursors
+  :ensure t
+  :bind (("C-M-c"   . mc/edit-lines)
+         ("C-M-n"   . mc/mark-next-like-this)
+         ("C-M-p"   . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
+
+;; snippet
+(leaf yasnippet
+  :ensure t
+  :global-minor-mode yas-global-mode)
+
+;; syntax checking
+(leaf flycheck
+  :ensure t
+  :bind (("M-n" . flycheck-next-error)
+         ("M-p" . flycheck-previous-error)
+         ("M-l" . flycheck-list-errors))
+  :global-minor-mode global-flycheck-mode)
+
+;; auto-completion
+(leaf company
+  :ensure t
+  :custom ((company-minimum-prefix-length . 1)
+           (company-idle-delay . 0)
+           (company-dabbrev-downcase . nil))
+  :global-minor-mode global-company-mode
+  :config
+  (leaf company-box
+    :emacs>= 27
+    :ensure t
+    :hook (company-mode-hook . company-box-mode)))
+
+;; enhance completion and search
+(leaf ivy
+  :ensure t
+  :global-minor-mode ivy-mode
+  :custom ((ivy-re-builders-alist . '((t      . ivy--regex-fuzzy)
+                                      (swiper . ivy--regex-plus)))
+           (ivy-use-selectable-prompt . t)
+           (ivy-mode . t)
+           (counsel-mode . t))
+  :init
+  (leaf *ivy-requirements
+    :config
+    (leaf swiper
+      :disabled t
+      :ensure t
+      :bind (([remap isearch-forward] . swiper)))
+    (leaf counsel
+      :ensure t
+      :global-minor-mode counsel-mode
+      :bind (([remap isearch-forward] . counsel-imenu)
+             ("C-x C-r" . counsel-recentf)))))
+
+;; terminal
+(leaf vterm
+  :ensure t)
+
+;; color display
+(leaf rainbow-mode
+  :ensure t
+  :leaf-defer t
+  :hook
+  (web-mode-hook . rainbow-mode))
+
+(leaf editorconfig
+  :ensure t
+  :custom
+  (editorconfig-mode 1))
+
+;; languages
+;; go
+(leaf golang
+  :config
+  (leaf go-mode
+    :ensure t
+    :leaf-defer t
+    :commands (gofmt-before-save)
+    :init
+    (add-hook 'before-save-hook 'gofmt-before-save)
+    (setq tab-width 2))
+
+  (leaf protobuf-mode
+    :ensure t)
+
+  (leaf go-impl
+    :ensure t
+    :leaf-defer t
+    :commands go-impl))
+
+;; web
+(leaf web-mode
+  :ensure t
+  :after flycheck
+  :defun flycheck-add-mode
+  :mode (("\\.html?\\'" . web-mode)
+         ("\\.scss\\'"  . web-mode)
+         ("\\.css\\'"   . web-mode)
+         ("\\.vue\\'"   . web-mode)
+         ("\\.js\\'"    . web-mode))
+  :config
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-comment-style 2
+        web-mode-style-padding 1
+        web-mode-script-padding 1))
+
+;; typescript
+(leaf typescript-mode
+  :ensure t
+  :custom
+  (typescript-indent-level . 2))
+
+;; python
+(leaf python-mode
+  :ensure t
+  :leaf-defer t
+  :mode (("\\.py\\'" . python-mode)))
+
+;; yaml
+(leaf yaml-mode
+  :ensure t
+  :leaf-defer t
+  :mode ("\\.yaml\\'" . yaml-mode))
+
+;; markdown
+(leaf markdown
+  :config
+  (leaf markdown-mode
+    :ensure t
+    :leaf-defer t
+    :mode ("\\.md\\'" . grm-mode)
+    :custom
+    (markdown-command . "github-markup")
+    (markdown-command-needs-filename . t))
+  (leaf markdown-preview-mode
+    :ensure t))
+
+;; dockerfile
+(leaf dockerfile-mode
+  :ensure t)
+
+;; lsp
+(leaf lsp-mode
+  :ensure t
+  :require t
+  :commands lsp
+  :hook
+  (go-mode-hook . lsp)
+  (web-mode-hook . lsp)
+  (typescript-mode-hook . lsp)
+  :config
+  (leaf lsp-ui
+    :ensure t
+    :require t
+    :hook
+    (lsp-mode-hook . lsp-ui-mode)
+    :custom
+    (lsp-ui-sideline-enable . nil)
+    (lsp-prefer-flymake . nil)
+    (lsp-print-performance . t)
+    :bind
+    ("C-c i" . lsp-ui-menu)
+    :config
+    (setq lep-ui-doc-position 'bottom)))
+
+(provide 'init)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(use-package blackout el-get hydra leaf-keywords leaf)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
+
+;;; init.el ends here

@@ -6,6 +6,7 @@ command tmux
 
 # abbr
 abbr -a e emacs -nw
+abbr -a eb emacs --batch -f batch-byte-compile ~/dotfiles/.leaf.d/init.el
 abbr -a dc docker-compose
 
 abbr -a g git
@@ -43,7 +44,7 @@ function ghq_fzf_repo -d 'Repository search'
 end
 
 function fish_user_key_bindings
-  bind \cg ghq_fzf_repo
+  bind \cc ghq_fzf_repo
 end
 
 # pyenv
@@ -53,3 +54,7 @@ pyenv init - | source
 
 # nodebrew
 set -x PATH $HOME/.nodebrew/current/bin $PATH
+
+# anyenv
+set -x PATH $HOME/.anyenv/bin $PATH
+eval (anyenv init - | source)

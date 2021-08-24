@@ -1,0 +1,60 @@
+# emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# flymake-mode
+*_flymake.*
+
+# eshell files
+/eshell/history
+/eshell/lastdir
+
+# elpa packages
+.leaf.d/elpa/
+
+#reftex files
+*.rel
+
+# cask
+.leaf.d/.cask/
+.leaf.d/dist/
+
+# flycheck
+flycheck_*.elpa
+# server auth directory
+/server/
+
+# .projectile
+.projectile
+
+# directory configuration
+.dir-locals.el
+# network security
+/network-security.data
+
+# transient
+.leaf.d/transient
+
+# cache
+.leaf.d/.cache
+
+# need
+!/.gitignore
+!/.Brewfile
+!/.gitconfig
+!/.editorconfig
+!/.tmux.con
+!/.fish/
+!/.leaf.d/.init.el
+!/.leaf.d/custom.el
+!/.leaf.d/snippets/
