@@ -29,8 +29,12 @@ SETUVAR _fish_abbr_gd:git\x20diff
 SETUVAR _fish_abbr_gdf:git\x20diff
 SETUVAR _fish_abbr_gpl:git\x20pull
 SETUVAR _fish_abbr_gps:git\x20push
+SETUVAR _fish_abbr_grb:git\x20rebase
+SETUVAR _fish_abbr_gri:git\x20rebase\x20\x2di\x20HEAD\x7e
 SETUVAR _fish_abbr_gs:git\x20status
+SETUVAR _fish_abbr_gs_2E_:git\x20checkout\x20\x2e
 SETUVAR _fish_abbr_gst:git\x20status
+SETUVAR _fish_abbr_gsw:git\x20switch
 SETUVAR _fish_abbr_l:ls\x20\x2dCF
 SETUVAR _fish_abbr_la:ls\x20\x2da
 SETUVAR _fish_abbr_ll:ls\x20\x2dl

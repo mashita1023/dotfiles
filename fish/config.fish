@@ -19,7 +19,11 @@ abbr -a gb git branch
 abbr -a gps git push
 abbr -a gpl git pull
 abbr -a gck git checkout
-abbr -a gd git diff
+abbr -a gdf git diff
+abbr -a gsw git switch
+abbr -a gs. git checkout .
+abbr -a grb git rebase
+abbr -a gri git rebase -i HEAD~
 
 abbr -a ls ls -alF
 abbr -a ll ls -l
@@ -58,3 +62,6 @@ set -x PATH $HOME/.nodebrew/current/bin $PATH
 # anyenv
 set -x PATH $HOME/.anyenv/bin $PATH
 eval (anyenv init - | source)
+
+# retty3 ENDPOINTS
+set -x ENDPOINT restaurant-service.staging.services.retty3
