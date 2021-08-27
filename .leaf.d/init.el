@@ -194,7 +194,9 @@
 ;; watch and select dir and file
 (leaf neotree
   :ensure t
-  :bind ("C-o" . neotree-toggle))
+  :bind ("C-o" . neotree-toggle)
+  :config
+  (setq neo-show-hidden-files t))
 
 ;; theme
 (leaf doom-themes

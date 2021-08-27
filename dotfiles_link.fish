@@ -4,3 +4,4 @@ ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/dotfiles/.leaf.d ~/.emacs.d
 ln -s ~/dotfiles/.tmux ~/.tmux
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
+ln -s ~/dotfiles/.ssh ~/.ssh

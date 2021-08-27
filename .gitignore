@@ -48,6 +48,10 @@ flycheck_*.elpa
 # cache
 .leaf.d/.cache
 
+# ssh
+.ssh/id_rsa
+.ssh/summer_intern_web_2021
+
 # need
 !/.gitignore
 !/.Brewfile
