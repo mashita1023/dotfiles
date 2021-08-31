@@ -1,4 +1,4 @@
-# emacs
+# EMACS
 *~
 \#*\#
 /.emacs.desktop
@@ -8,51 +8,57 @@ auto-save-list
 tramp
 .\#*
 
-# Org-mode
+## Org-mode
 .org-id-locations
 *_archive
 
-# flymake-mode
+## flymake-mode
 *_flymake.*
 
 # eshell files
 /eshell/history
 /eshell/lastdir
 
-# elpa packages
+## elpa packages
 .leaf.d/elpa/
 
-#reftex files
+## reftex files
 *.rel
 
-# cask
+## cask
 .leaf.d/.cask/
 .leaf.d/dist/
 
-# flycheck
+## flycheck
 flycheck_*.elpa
-# server auth directory
+
+## server auth directory
 /server/
 
-# .projectile
+## .projectile
 .projectile
 
-# directory configuration
+## directory configuration
 .dir-locals.el
-# network security
+
+## network security
 /network-security.data
 
-# transient
+## transient
 .leaf.d/transient
 
-# cache
+## cache
 .leaf.d/.cache
 
-# ssh
+## recentf
+.leaf.d/recentf
+
+# OTHER
+## ssh
 .ssh/id_rsa
 .ssh/summer_intern_web_2021
 
-# need
+# NEED
 !/.gitignore
 !/.Brewfile
 !/.gitconfig

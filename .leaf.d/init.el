@@ -100,7 +100,8 @@
             (auto-save-default . nil)
             (make-backup-files . nil))
   :config
-  (defalias 'yes-or-no-p 'y-or-n-p))
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (global-unset-key "C-s"))
 
 ;; display line numbers in the left margin
 (leaf linum
@@ -142,7 +143,7 @@
   :ensure t
   :global-minor-mode t)
 
-;; 
+;;
 (leaf which-key
   :ensure t
   :global-minor-mode t)
@@ -154,7 +155,7 @@
          ("C-M-/" . undo-tree-visualize))
   :global-minor-mode global-undo-tree-mode)
 
-;; 
+;;
 (leaf expand-region
   :ensure t
   :bind ("C-=" . er/expand-region))
@@ -196,7 +197,7 @@
   :ensure t
   :bind ("C-o" . neotree-toggle)
   :config
-  (setq neo-show-hidden-files t))
+  (defvar neo-show-hidden-files t))
 
 ;; theme
 (leaf doom-themes
@@ -233,13 +234,23 @@
   :ensure t
   :custom ((company-minimum-prefix-length . 1)
            (company-idle-delay . 0)
-           (company-dabbrev-downcase . nil))
+           (company-dabbrev-downcase . nil)
+           (company-require-match . 'never)
+           (company-selection-wrap-around . t)
+           (company-tooltip-align-annotations . t)
+           (company-tng-mode . t))
   :global-minor-mode global-company-mode
   :config
   (leaf company-box
-    :emacs>= 27
+             :emacs>= 27
+             :ensure t
+    :hook (company-mode-hook . company-box-mode))
+  (leaf company-statistics
     :ensure t
-    :hook (company-mode-hook . company-box-mode)))
+    :defun (company-statics-mode))
+  (leaf company-fuzzy
+    :ensure t
+    :custom (global-company-fuzzy-mode . 1)))
 
 ;; enhance completion and search
 (leaf ivy
@@ -253,15 +264,20 @@
   :init
   (leaf *ivy-requirements
     :config
+    ;; search
+    ;; swiper-include-line-number-in-search only works with setq
     (leaf swiper
-      :disabled t
       :ensure t
-      :bind (([remap isearch-forward] . swiper)))
+      :bind ("C-s" . swiper)
+      :config
+      (setq swiper-include-line-number-in-search t))
+    ;; find-file
     (leaf counsel
       :ensure t
       :global-minor-mode counsel-mode
-      :bind (([remap isearch-forward] . counsel-imenu)
-             ("C-x C-r" . counsel-recentf)))))
+      :bind (("C-c C-s" . counsel-imenu)
+             ("C-c C-r" . counsel-recentf)))))
+
 
 ;; terminal
 (leaf vterm
@@ -274,10 +290,11 @@
   :hook
   (web-mode-hook . rainbow-mode))
 
+;; editorconifg
 (leaf editorconfig
   :ensure t
   :custom
-  (editorconfig-mode 1))
+  (editorconfig-mode . 1))
 
 ;; languages
 ;; go
@@ -311,12 +328,12 @@
          ("\\.js\\'"    . web-mode))
   :config
   (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (setq web-mode-markup-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2
-        web-mode-comment-style 2
-        web-mode-style-padding 1
-        web-mode-script-padding 1))
+  (defvar web-mode-markup-indent-offset 2)
+  (defvar web-mode-css-indent-offset 2)
+  (defvar web-mode-code-indent-offset 2)
+  (defvar web-mode-comment-style 2)
+  (defvar web-mode-style-padding 1)
+  (defvar web-mode-script-padding 1))
 
 ;; typescript
 (leaf typescript-mode
@@ -342,12 +359,13 @@
   (leaf markdown-mode
     :ensure t
     :leaf-defer t
-    :mode ("\\.md\\'" . grm-mode)
+    :mode ("\\.md\\'" . gfm-mode)
     :custom
     (markdown-command . "github-markup")
     (markdown-command-needs-filename . t))
-  (leaf markdown-preview-mode
-    :ensure t))
+;  (leaf markdown-preview-mode
+;  :ensure t)
+ )
 
 ;; dockerfile
 (leaf dockerfile-mode
@@ -375,7 +393,7 @@
     :bind
     ("C-c i" . lsp-ui-menu)
     :config
-    (setq lep-ui-doc-position 'bottom)))
+    (defvar lsp-ui-doc-position 'bottom)))
 
 (provide 'init)
 

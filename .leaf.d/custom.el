@@ -3,6 +3,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-save-default nil)
  '(create-lockfiles nil)
  '(custom-file "~/dotfiles/.leaf.d/custom.el")
  '(debug-on-error t)
@@ -14,6 +15,7 @@
  '(imenu-list-size 30 t)
  '(indent-tabs-mode nil)
  '(init-file-debug t t)
+ '(make-backup-files nil)
  '(package-archives
    '(("org" . "https://orgmode.org/elpa/")
      ("melpa" . "https://melpa.org/packages/")
