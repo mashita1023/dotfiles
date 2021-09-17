@@ -247,10 +247,7 @@
     :hook (company-mode-hook . company-box-mode))
   (leaf company-statistics
     :ensure t
-    :defun (company-statics-mode))
-  (leaf company-fuzzy
-    :ensure t
-    :custom (global-company-fuzzy-mode . 1)))
+    :defun (company-statics-mode)))
 
 ;; enhance completion and search
 (leaf ivy
