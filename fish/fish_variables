@@ -47,7 +47,7 @@ SETUVAR _fisher_jethrokuan_2F_fzf_files:/home/mashimo/\x2econfig/fish/functions/
 SETUVAR _fisher_jethrokuan_2F_z_files:/home/mashimo/\x2econfig/fish/functions/__z\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/__z_add\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/__z_clean\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/__z_complete\x2efish\x1e/home/mashimo/\x2econfig/fish/conf\x2ed/z\x2efish
 SETUVAR _fisher_jorgebucaran_2F_nvm_2E_fish_files:/home/mashimo/\x2econfig/fish/functions/_nvm_index_update\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/_nvm_list\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/_nvm_version_activate\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/_nvm_version_deactivate\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/nvm\x2efish\x1e/home/mashimo/\x2econfig/fish/conf\x2ed/nvm\x2efish\x1e/home/mashimo/\x2econfig/fish/completions/nvm\x2efish
 SETUVAR _fisher_oh_2D_my_2D_fish_2F_theme_2D_agnoster_files:/home/mashimo/\x2econfig/fish/functions/fish_mode_prompt\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/fish_prompt\x2efish\x1e/home/mashimo/\x2econfig/fish/functions/fish_right_prompt\x2efish
-SETUVAR _fisher_plugins:0rax/fish\x2dbd\x1ejethrokuan/fzf\x1ejethrokuan/z\x1eoh\x2dmy\x2dfish/theme\x2dagnoster\x1eedc/bass\x1ejorgebucaran/nvm\x2efish\x1edracula/fish\x1edecors/fish\x2dghq
+SETUVAR _fisher_plugins:0rax/fish\x2dbd\x1ejethrokuan/fzf\x1ejethrokuan/z\x1eoh\x2dmy\x2dfish/theme\x2dagnoster\x1eedc/bass\x1ejorgebucaran/nvm\x2efish\x1edecors/fish\x2dghq\x1edracula/fish
 SETUVAR fish_color_autosuggestion:BD93F9
 SETUVAR fish_color_cancel:\x2dr
 SETUVAR fish_color_command:F8F8F2
@@ -71,6 +71,7 @@ SETUVAR fish_color_selection:white\x1e\x2d\x2dbold\x1e\x2d\x2dbackground\x3dbrbl
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
+SETUVAR fish_greeting:Welcome\x20to\x20fish\x2c\x20the\x20friendly\x20interactive\x20shell
 SETUVAR fish_key_bindings:fish_default_key_bindings
 SETUVAR fish_pager_color_completion:normal
 SETUVAR fish_pager_color_description:B3A06D\x1eyellow

@@ -22,7 +22,6 @@
 ;; My init.el.
 
 ;;; Code:
-
 ;; this enables this running method
 ;;   emacs -q -l ~/.debug.emacs.d/{{pkg}}/init.el
 (eval-and-compile
@@ -101,7 +100,9 @@
             (make-backup-files . nil))
   :config
   (defalias 'yes-or-no-p 'y-or-n-p)
-  (global-unset-key "C-s"))
+  (global-unset-key "C-s")
+  (if window-system (progn
+    (set-frame-parameter nil 'alpha 80))))
 
 ;; display line numbers in the left margin
 (leaf linum
@@ -367,6 +368,13 @@
 ;; dockerfile
 (leaf dockerfile-mode
   :ensure t)
+
+;; dart
+(leaf dart-mode
+  :ensure t
+  :leaf-defer t
+)
+
 
 ;; lsp
 (leaf lsp-mode

@@ -1,4 +1,4 @@
-# brew
+  # brew
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # tmux
@@ -52,9 +52,9 @@ function fish_user_key_bindings
 end
 
 # pyenv
-set -x PYENV_ROOT $HOME/.pyenv
-set -x PATH $PYENV_ROOT/bin $PATH
-pyenv init - | source
+#set -x PYENV_ROOT $HOME/.pyenv
+#set -x PATH $PYENV_ROOT/bin $PATH
+#pyenv init - | source
 
 # nodebrew
 set -x PATH $HOME/.nodebrew/current/bin $PATH
@@ -65,3 +65,6 @@ eval (anyenv init - | source)
 
 # retty3 ENDPOINTS
 set -x ENDPOINT restaurant-service.staging.services.retty3
+
+# flutter
+set -x PATH $HOME/fvm/default/bin $PATH

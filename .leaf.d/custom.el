@@ -16,10 +16,10 @@
  '(indent-tabs-mode nil)
  '(init-file-debug t t)
  '(make-backup-files nil)
- '(package-archives
-   '(("org" . "https://orgmode.org/elpa/")
-     ("melpa" . "https://melpa.org/packages/")
-     ("gnu" . "https://elpa.gnu.org/packages/")))
+  '(package-archives
+     '(("org" . "https://orgmode.org/elpa/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")))
  '(package-selected-packages '(use-package blackout el-get hydra leaf-keywords leaf))
  '(scroll-bar-mode nil t)
  '(show-paren-delay 0.1)
