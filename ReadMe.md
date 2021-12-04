@@ -1,4 +1,5 @@
 # 構造
+```
 .
 ├── .Brewfile
 ├── .bashrc
@@ -34,6 +35,7 @@
 │   ├── fish_variables
 │   └── functions
 └── startup.fish
+```
 
 # startup
 `startup.fish`は動作確認を全く行いないメモ状態なのでそれっぽいコマンドを打ってください
