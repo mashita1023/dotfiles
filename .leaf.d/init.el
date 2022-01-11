@@ -50,6 +50,13 @@
 
     :config
     ;; initialize leaf-keywords.el
+    (setq org-directory "~/ghq/github.com/mashimo/org-files")
+    (setq org-default-notes-file "notes.org")
+    (setq org-capture-templates
+      '(("n" "Note" entry (file+headline
+                            "~/ghq/github.com/mashimo/org-files/notes.org" "Notes")
+          "* %?\nEntered on %U\n %i\n %a")
+         ))
     (leaf-keywords-init)))
 
 ;; ここにいっぱい設定を書く
@@ -58,7 +65,8 @@
             ("C-/"  . undo)
             ("M-\\" . help-command)
             ("M-["  . switch-to-prev-buffer)
-            ("M-]"  . switch-to-next-buffer)))
+            ("M-]"  . switch-to-next-buffer)
+            ("C-c c" . org-capture)))
 
 (leaf leaf
   :config
@@ -375,7 +383,6 @@
   :leaf-defer t
 )
 
-
 ;; lsp
 (leaf lsp-mode
   :ensure t
@@ -417,5 +424,4 @@
 ;; Local Variables:
 ;; indent-tabs-mode: nil
 ;; End:
-
 ;;; init.el ends here
