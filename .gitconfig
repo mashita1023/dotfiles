@@ -1,28 +1,12 @@
-[user]
-	name = Toshichika Mashimo
-	email = mashita1023@gmail.com
 [core]
+	excludesFile = /Users/toshichika-mashimo/.gitignore_global
 	editor = emacs -nw
-	ignorecase = false
-	quotepath = false
-	autocrlf = false
-[color]
-	diff = auto
-	status = auto
-	branch = auto
-	ui = true
-[status]
-	showUntrackedFiles = all
-[merge]
-	conflictStyle = diff3
-[pull]
-	ff = only
 [push]
 	default = current
-[credential]
-	helper = cache --timeout=86400
-#[url "git@github.com:"]
-#        insteadOf = https://github.com/
-# [url "https://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:x-oauth-basic@github.com/"]
-#	insteadOf = https://github.com/
-[http]
+[user]
+	name = Mashimo
+	email = toshichika-mashimo@retty.me
+[pull]
+	ff = only
+[url "https://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:x-oauth-basic@github.com/"]
+	insteadOf = https://github.com/

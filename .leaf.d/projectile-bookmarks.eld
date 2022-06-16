@@ -1,0 +1,1 @@
+("~/dotfiles/" "~/ghq/github.com/RettyInc/retty3-web-frontend/" "~/ghq/github.com/RettyInc/retty3-web-api-gateway/" "~/ghq/github.com/NUTFes/SeeFT/seeft-api/" "~/" "~/ghq/github.com/NUTFes/SeeFT/" "~/ghq/github.com/RettyInc/retty3-service-restaurant/")

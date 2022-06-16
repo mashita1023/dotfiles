@@ -57,6 +57,9 @@
                             "~/ghq/github.com/mashimo/org-files/notes.org" "Notes")
           "* %?\nEntered on %U\n %i\n %a")
          ))
+    (setq kill-whole-line t)
+    (setq initial-scratch-message "")
+
     (leaf-keywords-init)))
 
 ;; ここにいっぱい設定を書く
@@ -105,12 +108,19 @@
             (indent-tabs-mode . nil)
             (electric-pair-mode . t)
             (auto-save-default . nil)
-            (make-backup-files . nil))
+            (make-backup-files . nil)
+            (display-time-mode . t)
+            (x-select-enable-clipboard . t))
   :config
   (defalias 'yes-or-no-p 'y-or-n-p)
   (global-unset-key "C-s")
   (if window-system (progn
-    (set-frame-parameter nil 'alpha 80))))
+                      (set-frame-parameter nil 'alpha 80)))
+  (setq backup-directory-alist
+    (cons (cons ".*" (expand-file-name "~/.emacs.d/backup"))
+      backup-directory-alist))
+  (setq auto-save-file-name-transforms
+    `((".*", (expand-file-name "~/.emacs.d/backup/") t))))
 
 ;; display line numbers in the left margin
 (leaf linum
@@ -118,6 +128,8 @@
   :tag "builtin"
   :added "2021-06-21"
   :init (global-linum-mode 1))
+  :config
+  (setq linum-format "%d  ")
 
 ;; delete selection if you insert
 (leaf delselect
@@ -162,7 +174,10 @@
   :ensure t
   :bind (("M-/" . undo-tree-redo)
          ("C-M-/" . undo-tree-visualize))
-  :global-minor-mode global-undo-tree-mode)
+  :global-minor-mode global-undo-tree-mode
+  :custom(
+  (undo-tree-visualizer-diff . t)
+  (undo-tree-history-directory-alist . '(("." . "~/.emacs.d/backup/")))))
 
 ;;
 (leaf expand-region
@@ -206,7 +221,9 @@
   :ensure t
   :bind ("C-o" . neotree-toggle)
   :config
-  (defvar neo-show-hidden-files t))
+  (setq neo-show-hidden-files t)
+  (defvar neo-keymap-style 'concise)
+  (defvar neo-smart-open t))
 
 ;; theme
 (leaf doom-themes
@@ -282,8 +299,17 @@
       :ensure t
       :global-minor-mode counsel-mode
       :bind (("C-c C-s" . counsel-imenu)
-             ("C-c C-r" . counsel-recentf)))))
+              ("C-c C-r" . counsel-recentf)))
+    (leaf ghq
+      :ensure t
+      :config
+      (setq ivy-ghq-short-list t))))
 
+;; root project and toggle
+(leaf projectile
+  :ensure t
+  :global-minor-mode projectile-mode
+  :bind ("C-c p" . projectile-command-map))
 
 ;; terminal
 (leaf vterm
@@ -349,7 +375,7 @@
 
 ;; python
 (leaf python-mode
-  :ensure t
+201~  :ensure t
   :leaf-defer t
   :mode (("\\.py\\'" . python-mode)))
 
@@ -406,6 +432,12 @@
     ("C-c i" . lsp-ui-menu)
     :config
     (defvar lsp-ui-doc-position 'bottom)))
+
+;; protobuf
+(leaf protobuf-mode
+  :ensure t
+  :require t
+  )
 
 (provide 'init)
 

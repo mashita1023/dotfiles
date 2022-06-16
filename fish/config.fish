@@ -1,6 +1,3 @@
-  # brew
-eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
 # tmux
 command tmux
 
@@ -11,30 +8,19 @@ abbr -a dc docker-compose
 
 abbr -a g git
 abbr -a gs git status
-abbr -a ga git add
-abbr -a gap git add --patch
-abbr -a gaa git add -A
-abbr -a gco git commit -m
+abbr -a ga git add -A
+abbr -a gco git commit -m ""
 abbr -a gb git branch
 abbr -a gps git push
 abbr -a gpl git pull
 abbr -a gck git checkout
 abbr -a gdf git diff
 abbr -a gsw git switch
-abbr -a gs. git checkout .
+abbr -a gsc git switch -c
 abbr -a grb git rebase
-abbr -a gri git rebase -i HEAD~
 
 abbr -a ls ls -alF
-abbr -a ll ls -l
-abbr -a la ls -a
 abbr -a l ls -CF
-
-abbr -a gcc g++-10
-# gcc
-set -x PATH $PATH /home/linuxbrew/.linuxbrew/bin/g++-10
-# golang
-set -x PATH $PATH ~/go/bin
 
 # fzf
 set -U FZF_LEGACY_KEYBINDINGS 0
@@ -51,20 +37,16 @@ function fish_user_key_bindings
   bind \cc ghq_fzf_repo
 end
 
-# pyenv
-#set -x PYENV_ROOT $HOME/.pyenv
-#set -x PATH $PYENV_ROOT/bin $PATH
-#pyenv init - | source
+# goenv
+    set -x GOENV_ROOT "$HOME/.anyenv/envs/goenv"
+    set -x PATH $PATH "$GOENV_ROOT/bin"
+    set -gx PATH "$GEONV_ROOT/shims" $PATH
+    set -x GOROOT (goenv prefix)
+    set -x GOPATH $HOME/go/(goenv versions --bare)
+    eval (goenv init - | source)
 
-# nodebrew
-set -x PATH $HOME/.nodebrew/current/bin $PATH
+    set -x GOPRIVATE \"github/mashita1023/\"
 
 # anyenv
 set -x PATH $HOME/.anyenv/bin $PATH
 eval (anyenv init - | source)
-
-# retty3 ENDPOINTS
-set -x ENDPOINT restaurant-service.staging.services.retty3
-
-# flutter
-set -x PATH $HOME/fvm/default/bin $PATH

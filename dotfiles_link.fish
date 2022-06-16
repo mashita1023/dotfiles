@@ -5,3 +5,5 @@ ln -s ~/dotfiles/.leaf.d ~/.emacs.d
 ln -s ~/dotfiles/.tmux ~/.tmux
 ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
 ln -s ~/dotfiles/.ssh ~/.ssh
+ln -s ~/dotfiles/.gitignore_global ~/.gitignore_global
+ln -s ~/dotfiles/.gitconfig ~/.gitconfig
