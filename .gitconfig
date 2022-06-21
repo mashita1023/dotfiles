@@ -6,6 +6,7 @@
 	ignorecase = false
 	quotepath = false
 	autocrlf = false
+  excludesFile = ~/.gitignore_global
 [color]
 	diff = auto
 	status = auto
@@ -21,8 +22,4 @@
 	default = current
 [credential]
 	helper = cache --timeout=86400
-#[url "git@github.com:"]
-#        insteadOf = https://github.com/
-# [url "https://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:x-oauth-basic@github.com/"]
-#	insteadOf = https://github.com/
 [http]
