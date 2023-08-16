@@ -1,0 +1,25 @@
+name: macos
+
+on:
+  push:
+    branch: [ main ]
+  pull_request:
+    types: [opened, reopend]
+
+jobs:
+  UnitTest:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run brew bundle
+      run: brew bundle
+
+    - name: Run symbolic.sh
+      if: always()
+      run: ${GITHUB_WORKSPACE}/symbolic.sh
+  FullTest:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run install.sh
+      run: sh -c '${GITHUB_WORKSPACE}/install.sh'

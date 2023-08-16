@@ -1,0 +1,7 @@
+.envrc
+.env
+GPATH
+GRTAGS
+GTAGS
+.DS_Store
+.go-version
