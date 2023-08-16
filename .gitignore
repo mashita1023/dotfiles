@@ -64,9 +64,6 @@ projectile-bookmarks.eld
 ## Unnecessary
 .DS_Store
 
-## ssh
-.ssh/
-
 ## lima
 .lima/_config/
 .lima/docker/*
@@ -83,3 +80,9 @@ projectile-bookmarks.eld
 !.leaf.d/.init.el
 !.leaf.d/custom.el
 !.leaf.d/snippets/
+
+# private dotfiles
+.ssh
+tunnel
+.config/fish/variables.fish
+.config/fish/private_functions

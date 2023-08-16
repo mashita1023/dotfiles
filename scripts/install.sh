@@ -1,6 +1,7 @@
 #!/bin/sh
 
 if [ $(uname) == "Darwin" ]; then
+  git submodule update
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   /bin/bash -c ". ~/dotfiles/symbolic.sh"
   # test code
