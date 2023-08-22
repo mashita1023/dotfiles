@@ -226,8 +226,6 @@
   (highlight-indent-guides-character . ?\|)
   :hook
   (prog-mode-hook . highlight-indent-guides-mode))
-
-;; :)
 (leaf all-the-icons
   :ensure t)
 
@@ -356,8 +354,8 @@
   (editorconfig-mode . 1))
 
 ;; tab-bar
-(leaf tab-bar-mode
-  :ensure t)
+;(leaf tab-bar-mode
+;  :ensure t)
 
 ;; languages
 ;; go
@@ -477,7 +475,7 @@
   (web-mode-hook . lsp)
   (dockerfile-mode-hook . lsp)
   :config
-  (defvar ruby-insert-encoding-magic-comment nilv)
+  (defvar ruby-insert-encoding-magic-comment nil)
   (leaf lsp-ui
     :ensure t
     :after lsp-mode
