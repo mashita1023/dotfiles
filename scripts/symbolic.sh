@@ -28,7 +28,7 @@ symbolic_file () {
 
   if [ -e $target ]; then
     file_exist $symbol
-    ln -s ~/dotfiles/$target/ ~/$symbol
+    ln -sfn ~/dotfiles/$target/ ~/$symbol
     echo "$1 success"
   else
     echo "$1 failed"
@@ -44,51 +44,12 @@ symbolic_dir () {
   fi
 
   if [ -d $target ]; then
-    ln -s ~/dotfiles/$target ~/$symbol
+    ln -sfn ~/dotfiles/$target ~/$symbol
     echo "$1 success"
   else
     echo "$1 failed"
   fi
 }
-
-symbolic_private_file () {
-  target=$1
-  if [ -n $2 ]; then
-    symbol=$2
-  else
-    symbol=$1
-  fi
-
-  if [ -e $target ]; then
-    file_exist $symbol
-    ln -s ~/private_dotfiles/$target/ ~/dotfiles/$symbol
-    echo "$1 success"
-  else
-    echo "$1 failed"
-  fi
-}
-
-symbolic_private_dir () {
-  target=$1
-  if [ -n $2 ]; then
-    symbol=$2
-  else
-    symbol=$1
-  fi
-
-  if [ -d $target ]; then
-    ln -s ~/private_dotfiles/$target ~/dotfiles/$symbol
-    echo "$1 success"
-  else
-    echo "$1 failed"
-  fi
-}
-
-# create submodule symbolic link
-symbolic_private_dir .ssh
-symbolic_private_dir tunnel
-symbolic_private_file .config/fish/environments.fish
-symbolic_private_dir .config/fish/my_functions/ .config/fish/private_functions
 
 # create directory
 create_dir .config/git
@@ -103,6 +64,7 @@ symbolic_file .config/git/ignore
 symbolic_file .config/git/config
 symbolic_file .config/tmux/tmux.conf
 symbolic_dir .leaf.d .emacs.d
-symbolic_file .ssh
+
+ln -sfn ~/dotfiles/.config/fish/my_functions/* ~/.config/fish/functions/
 
 echo "complete symbolic link"

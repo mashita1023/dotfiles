@@ -1,9 +1,11 @@
 #!/bin/sh
 
+git submodule update
+
 if [ $(uname) == "Darwin" ]; then
-  git submodule update
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   /bin/bash -c ". ~/dotfiles/symbolic.sh"
+  /bin/bash -c ". ~/dotfiles/symbolic_private.sh"
   # test code
   echo "$(ls -l)"
   brew bundle install --global

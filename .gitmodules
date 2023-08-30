@@ -1,3 +1,6 @@
 [submodule "private_dotfiles"]
 	path = private_dotfiles
 	url = https://github.com/mashita1023/private_dotfiles.git
+[submodule "memos"]
+	path = memos
+	url = https://github.com/mashita1023/memos.git

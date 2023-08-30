@@ -1,8 +1,9 @@
 # startup
 ```sh
 $ ~/dotfiles/install.sh
-// or
-$ source ~/dotfiles/install.sh
+$ ~/dotfiles/symbolic.sh
+$ ~/dotfiles/symbolic_private.sh
+
 ```
 
 # option
