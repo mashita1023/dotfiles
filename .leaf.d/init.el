@@ -70,7 +70,8 @@
             ("M-\\" . help-command)
             ("M-["  . switch-to-prev-buffer)
             ("M-]"  . switch-to-next-buffer)
-            ("C-c c" . org-capture)))
+            ("C-c c" . org-capture)
+            ))
 
 (define-key global-map (kbd "C-/") 'undo)
 
@@ -124,11 +125,12 @@
       backup-directory-alist))
   (setq auto-save-file-name-transforms
     `((".*", (expand-file-name "~/.emacs.d/backup/") t)))
+  (defvar prev-yanked-text nil)
   (setq interprogram-cut-function
-    (lambda (text &optional push)
+    (lambda (text)
       (let ((process-connection-type nil))
         (let ((proc (start-process "pbcopy" nil "*pbcopy")))
-          (process-send-string proc string)
+          (process-send-string proc text)
           (process-send-eof proc)))))
   (setq interprogram-paste-function
     (lambda ()
@@ -137,15 +139,13 @@
           nil
           (setq prev-yanked-text text))))))
 
-;; display line numbers in the left margin
-(leaf linum
-  :doc "display line numbers in the left margin"
-  :tag "builtin"
-  :added "2021-06-21"
-  :init (global-linum-mode 1))
+;;linum
+(leaf display-line-numbers
+  :ensure t
   :config
-  (setq linum-format "%d  ")
-
+  (global-display-line-numbers-mode 1)
+  (setq indicate-empty-lines t)
+  (setq indicate-buffer-boundaries 'left))
 ;; delete selection if you insert
 (leaf delselect
   :doc "delete selection if you insert"
@@ -169,6 +169,10 @@
   :emacs>= 24.1
   :ensure t)
 
+;; freee-keys is searching unused key prefix
+(leaf free-keys
+  :ensure t)
+
 ;; use git in emacs
 (leaf magit
   :ensure t
@@ -183,9 +187,9 @@
 (leaf which-key
   :ensure t
   :global-minor-mode t)
+
 ;;undo and redo
 (leaf undo-tree
-
   :ensure t
   :bind (("M-/" . undo-tree-redo)
          ("C-M-/" . undo-tree-visualize))
@@ -229,14 +233,23 @@
 (leaf all-the-icons
   :ensure t)
 
+(leaf highlight-defined
+  :ensure t)
+
+(leaf path-headerline-mode
+  :ensure t
+  :config (path-headerline-mode 1))
+
 ;; watch and select dir and file
 (leaf neotree
   :ensure t
   :bind ("C-o" . neotree-toggle)
   :config
+  ;; なぜかsetqじゃないといけないのでwarningは無視する
   (setq neo-show-hidden-files t)
-  (defvar neo-keymap-style 'concise)
-  (defvar neo-smart-open t))
+  (setq neo-keymap-style 'concise)
+  (setq neo-smart-open t)
+  (setq neo-window-fixed-size nil))
 
 ;; theme
 (leaf doom-themes
@@ -300,6 +313,25 @@
   (leaf company-statistics
     :ensure t
     :defun (company-statics-mode)))
+
+;; copilot
+(leaf copilot
+  :el-get (copilot :type github :pkgname "copilot-emacs/copilot.el")
+  :hook (prog-mode . copilot-mode)
+  :config
+  (leaf jsonrpc :ensure t)
+  (leaf dash :ensure t)
+  (leaf s :ensure t)
+  (leaf editorconfig :ensure t)
+  (defvar copilot-mode-map)
+  (defvar copilot-node-executable "~/.asdf/shims/node")
+  (defun my/copilot-tab ()
+    (interactive)
+    (or (copilot-accept-completion)
+        (indent-for-tab-command)))
+  (with-eval-after-load 'copilot
+    (define-key copilot-mode-map (kbd "<tab>") #'my/copilot-tab)))
+
 ;; enhance completion and search
 (leaf ivy
   :ensure t
@@ -328,7 +360,15 @@
     (leaf ghq
       :ensure t
       :config
-      (setq ivy-ghq-short-list t))))
+      (defvar ivy-ghq-short-list t))))
+
+;; string manipulation
+(leaf s
+  :ensure t)
+
+;; modern list API for emacs
+(leaf dash
+  :ensure t)
 
 ;; root project and toggle
 (leaf projectile
@@ -345,40 +385,36 @@
   :ensure t
   :leaf-defer t
   :hook
-  (web-mode-hook . rainbow-mode))
+  (typescript-mode . rainbow-mode))
 
 ;; editorconifg
 (leaf editorconfig
-  :ensure t
-  :custom
-  (editorconfig-mode . 1))
-
-;; tab-bar
-;(leaf tab-bar-mode
-;  :ensure t)
+  :ensure t)
+;  :custom
+;  (editorconfig-mode . 1))
 
 ;; languages
 ;; go
-(leaf golang
-  :config
-  (leaf go-mode
-    :ensure t
-    :leaf-defer t
-    :commands (gofmt-before-save)
-    :mode
-    ("\\.go\\'" . go-mode)
-    :init
-    (add-hook 'before-save-hook 'gofmt-before-save)
-    (setq tab-width 2))
+;(leaf golang
+;  :config
+;  (leaf go-mode
+;    :ensure t
+;    :leaf-defer t
+;    :commands (gofmt-before-save)
+;    :mode
+;    ("\\.go\\'" . go-mode)
+;    :init
+;    (add-hook 'before-save-hook 'gofmt-before-save)
+;    (setq tab-width 2))
 
-  (leaf protobuf-mode
-    :ensure t
-    :mode (("\\.proto\\'" . protobuf-mode)))
+;  (leaf protobuf-mode
+;    :ensure t
+;    :mode (("\\.proto\\'" . protobuf-mode)))
 
-  (leaf go-impl
-    :ensure t
-    :leaf-defer t
-    :commands go-impl))
+;  (leaf go-impl
+;    :ensure t
+;    :leaf-defer t
+;    :commands go-impl))
 
 ;; web
 (leaf web-mode
@@ -390,7 +426,8 @@
          ("\\.css\\'"   . web-mode)
          ("\\.vue\\'"   . web-mode)
          ("\\.js[x]?\\'" . web-mode)
-          ("\\.jst.eco\\'" . web-mode))
+;         ("\\.tsx\\'" . web-mode)
+         ("\\.jst.eco\\'" . web-mode))
   :init (defvar web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   :config
   (flycheck-add-mode 'javascript-eslint 'web-mode)
@@ -405,90 +442,124 @@
   (defvar web-mode-style-padding 1)
   (defvar web-mode-script-padding 1))
 
+;; lsp
+(leaf eglot
+  :ensure t
+  :hook
+  (typescript-mode . eglot-ensure)
+  (tsx-ts-mode . eglot-ensure))
+
 ;; typescript
+;;; https://jppot.info/posts/c05e989a-e642-4c84-a5b8-a0e0c3178941
+;(leaf typescript-ts-mode
+;  :mode (("\\\\.tsx\\\\'" . tsx-ts-mode)
+;         ("\\\\.ts\\\\'" . tsx-ts-mode))
+;  :config
+;  (setq typescript-ts-mode-indent-offset 2))
+
 (leaf typescript-mode
   :ensure t
-  :custom
-    (typescript-indent-level . 2)
-  :mode (("\\.ts?\\'" . typescript-mode)
-         ("\\.jst.eco\\'" . typescript-mode)))
+  :config
+  (font-lock-mode)
+  (flycheck-add-mode javascript-eslint 'typescript-mode)
+  (flycheck-add-mode javascript-eslint 'tsx-ts-mode)
+  :mode (("\\.ts\\'" . typescript-mode)
+         ("\\.tsx\\'" . tsx-ts-mode)))
+
+(leaf treesit
+  :config
+  (defvar treesit-font-lock-level 4))
+
+(leaf treesit-auto
+  :ensure t
+  :init
+  (require 'treesit-auto)
+  :config
+  (global-treesit-auto-mode)
+  (defvar treesit-auto-install t))
+
+(defvar tree-sitter-major-mode-language-alist nil)
+
+(leaf tree-sitter
+  :ensure t
+  :hook ((typescript-ts-mode . tree-sitter-hl-mode)
+         (tsx-ts-mode . tree-sitter-hl-mode))
+  :config
+  (global-tree-sitter-mode))
+
+(leaf tree-sitter-langs
+  :ensure t
+  :after tree-sitter
+  :config
+  (tree-sitter-require 'tsx)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(tsx-ts-mode . tsx)))
+
+(leaf tide
+  :ensure t
+  :hook (tsx-ts-mode . setup-tide-mode)
+  :config
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (defvar flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    (company-mode +1))
+  (defvar company-tooltip-align-annotations t))
 
 ;; python
-(leaf python-mode
-  :ensure t
-  :leaf-defer t
-  :mode (("\\.py\\'" . python-mode)))
+;(leaf python-mode
+;  :ensure t
+;  :leaf-defer t
+;  :mode (("\\.py\\'" . python-mode)))
 
 ;; ruby
-(leaf ruby-mode
-  :ensure t
-  :leaf-defer t
-  :mode (("\\.rb\\'" . ruby-mode)))
+;(leaf ruby-mode
+;  :ensure t
+;  :leaf-defer t
+;  :config
+;  (defvar lsp-solargraph-use-bundler t)
+;  (defvar lsp-rubocop-use-server-path "~/.asdf/shims/rubocop")
+;  (defvar lsp-rubocop-use-bundler t)
+;  :mode (("\\.rb\\'" . ruby-mode)))
 
 ;; yaml
-(leaf yaml-mode
-  :ensure t
-  :leaf-defer t
-  :mode (
-          ("\\.yaml\\'" . yaml-mode)
-          ("\\.yml\\'" . yaml-mode)
-  ))
+;(leaf yaml-mode
+;  :ensure t
+;  :leaf-defer t
+;  :mode (
+;          ("\\.yaml\\'" . yaml-mode)
+;          ("\\.yml\\'" . yaml-mode)
+;  ))
 
 ;; markdown
-(leaf markdown
-  :config
-  (leaf markdown-mode
-    :ensure t
-    :leaf-defer t
-    :mode ("\\.md\\'" . gfm-mode)
-    :custom
-    (markdown-command . "github-markup")
-    (markdown-command-needs-filename . t))
+;(leaf markdown
+;  :config
+;  (leaf markdown-mode
+;    :ensure t
+;    :leaf-defer t
+;    :mode ("\\.md\\'" . gfm-mode)
+;    :custom
+;    (markdown-command . "github-markup")
+;    (markdown-command-needs-filename . t))
 ;  (leaf markdown-preview-mode
 ;  :ensure t)
- )
+; )
 
 ;; dockerfile
-(leaf dockerfile-mode
-  :ensure t
-  :mode ("\\Dockerfile\\'" . dockerfile-mode))
+;(leaf dockerfile-mode
+;  :ensure t
+;  :mode ("\\Dockerfile\\'" . dockerfile-mode))
 
 ;; dart
-(leaf dart-mode
-  :ensure t
-  :leaf-defer t
-  :mode ("\\.dart\\'" . dart-mode)
-  )
+;(leaf dart-mode
+;  :ensure t
+;  :leaf-defer t
+;  :mode ("\\.dart\\'" . dart-mode)
+;  )
 
-;; lsp
-(leaf lsp-mode
-  :ensure t
-  :require t
-  :commands (lsp lsp-deferred)
-  :custom (lsp-keymap-prefix . "C-c l")
-  :hook
-  (lsp-mode-hook . lsp-headerline-breadcrumb-mode)
-  (go-mode-hook . lsp)
-  (web-mode-hook . lsp)
-  (typescript-mode-hook . lsp)
-  (ruby-mode-hook . lsp)
-  (web-mode-hook . lsp)
-  (dockerfile-mode-hook . lsp)
-  :config
-  (defvar ruby-insert-encoding-magic-comment nil)
-  (leaf lsp-ui
-    :ensure t
-    :after lsp-mode
-    :hook
-    (lsp-mode-hook . lsp-ui-mode)
-    :custom
-    (lsp-ui-sideline-enable . nil)
-    (lsp-prefer-flymake . nil)
-    (lsp-print-performance . t)
-    :bind
-    ("C-c i" . lsp-ui-imenu)
-    :config
-    (defvar lsp-ui-doc-position 'bottom)))
+;; eglot(lsp)
 
 (provide 'init)
 

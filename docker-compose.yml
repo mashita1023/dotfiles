@@ -1,7 +1,12 @@
-version: '3'
+version: '3.8'
 services:
   ubuntu:
-    image: ubuntu:22.04
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: ubuntu
     tty: true
-    platform: linux/arm64/v8
+#    platform: linux/arm64/v8
+    volumes:
+      - .:/root/dotfiles
+    privileged: true

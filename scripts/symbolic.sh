@@ -19,6 +19,7 @@ create_dir () {
 }
 
 symbolic_file () {
+  echo $1
   target=$1
   if [ -n $2 ]; then
     symbol=$2
@@ -36,6 +37,7 @@ symbolic_file () {
 }
 
 symbolic_dir () {
+  echo $1
   target=$1
   if [ -n $2 ]; then
     symbol=$2
