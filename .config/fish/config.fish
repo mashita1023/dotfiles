@@ -8,6 +8,8 @@ set -U fish_user_paths /opt/homebrew/sbin $fish_user_paths
 set -U fish_user_paths /opt/homebrew/bin $fish_user_paths
 set -gx PATH $HOME/.asdf/shims $PATH
 set -gx fish_user_paths /Users/toshichika-mashimo/.asdf/shims $fish_user_paths
+set -gx AQUA_ROOT_DIR "$(aqua root-dir)"
+fish_add_path $AQUA_ROOT_DIR/bin
 
 # brew
 eval (/opt/homebrew/bin/brew shellenv)
