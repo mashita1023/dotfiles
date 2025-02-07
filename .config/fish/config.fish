@@ -24,6 +24,10 @@ set -x DOCKER_HOST unix://$HOME/.lima/docker/sock/docker.sock
 # asdf
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
+# mysql
+fish_add_path "$(brew --prefix mysql@8.0)/bin"
+fish_add_path "$(brew --prefix mysql-client@8.0)/bin"
+
 # tmux
    if test -z $TMUX
        tmux new-session -d -s 'work'
@@ -87,8 +91,7 @@ set -U FZF_REVERSE_ISEARCH_OPTS "--reverse --height=100%"
 #end
 
 # goenv
-#set -x GOPATH $(go env GOPATH)
-#set -x PATH $PATH:$GOPATH/bin
+fish_add_path $(go env GOPATH)/bin
 
 # poetry
 #set -x PATH $PATH:$HOME/.local/bin

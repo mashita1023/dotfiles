@@ -1,3 +1,4 @@
 function ls
-  command exa $argv
+#  command exa $argv
+  command ls $argv
 end
