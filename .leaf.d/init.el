@@ -380,6 +380,11 @@
 (leaf vterm
   :ensure t)
 
+;; ripgrep
+(leaf rg
+  :ensure t
+  )
+
 ;; color display
 (leaf rainbow-mode
   :ensure t
@@ -393,28 +398,10 @@
 ;  :custom
 ;  (editorconfig-mode . 1))
 
-;; languages
-;; go
-;(leaf golang
-;  :config
-;  (leaf go-mode
-;    :ensure t
-;    :leaf-defer t
-;    :commands (gofmt-before-save)
-;    :mode
-;    ("\\.go\\'" . go-mode)
-;    :init
-;    (add-hook 'before-save-hook 'gofmt-before-save)
-;    (setq tab-width 2))
-
-;  (leaf protobuf-mode
-;    :ensure t
-;    :mode (("\\.proto\\'" . protobuf-mode)))
-
-;  (leaf go-impl
-;    :ensure t
-;    :leaf-defer t
-;    :commands go-impl))
+;; golang
+(leaf go-mode
+  :ensure t
+  :mode (("\\.go\\'" . go-mode)))
 
 ;; web
 (leaf web-mode
@@ -443,11 +430,32 @@
   (defvar web-mode-script-padding 1))
 
 ;; lsp
+;;;; sorbetとruby-lspが共存できないためruby-lspのみ使う
+;(leaf eglot
+;  :ensure t
+;  :defvar eglot-server-programs
+;  :hook
+;;  (typescript-mode . eglot-ensure)
+;;  (tsx-ts-mode . eglot-ensure)
+;  (ruby-mode-hook . eglot-ensure)
+;  :config
+;  (with-eval-after-load 'eglot
+;    (add-to-list 'eglot-server-programs
+;                 `(ruby-mode .,(eglot-alternatives
+;                                '(("bundle" "exec" "srb" "tc" "--lsp")
+;                                  ("ruby-lsp"))))))
+                                        ;  )
 (leaf eglot
   :ensure t
+  :defvar eglot-server-programs
   :hook
-  (typescript-mode . eglot-ensure)
-  (tsx-ts-mode . eglot-ensure))
+  (ruby-mode-hook . eglot-ensure)
+  (go-mode-hook . eglot-ensure)
+  :config
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 `(ruby-mode "ruby-lsp")))
+  )
 
 ;; typescript
 ;;; https://jppot.info/posts/c05e989a-e642-4c84-a5b8-a0e0c3178941
@@ -515,23 +523,19 @@
 ;  :mode (("\\.py\\'" . python-mode)))
 
 ;; ruby
-;(leaf ruby-mode
+(leaf ruby-mode
+  :ensure t
+  :custom (ruby-insert-encoding-magic-comment . nil)
+  :mode (("\\.rb\\'" . ruby-mode)))
+
+;(leaf rspec-mode
 ;  :ensure t
-;  :leaf-defer t
-;  :config
-;  (defvar lsp-solargraph-use-bundler t)
-;  (defvar lsp-rubocop-use-server-path "~/.asdf/shims/rubocop")
-;  (defvar lsp-rubocop-use-bundler t)
-;  :mode (("\\.rb\\'" . ruby-mode)))
+;  :mode (("\\_spec.rb\\'" . rspec-mode)))
 
 ;; yaml
-;(leaf yaml-mode
-;  :ensure t
-;  :leaf-defer t
-;  :mode (
-;          ("\\.yaml\\'" . yaml-mode)
-;          ("\\.yml\\'" . yaml-mode)
-;  ))
+(leaf yaml-mode
+  :ensure t
+  )
 
 ;; markdown
 ;(leaf markdown
@@ -559,7 +563,6 @@
 ;  :mode ("\\.dart\\'" . dart-mode)
 ;  )
 
-;; eglot(lsp)
 
 (provide 'init)
 
