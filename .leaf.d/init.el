@@ -315,22 +315,33 @@
     :defun (company-statics-mode)))
 
 ;; copilot
-(leaf copilot
-  :el-get (copilot :type github :pkgname "copilot-emacs/copilot.el")
-  :hook (prog-mode . copilot-mode)
-  :config
-  (leaf jsonrpc :ensure t)
-  (leaf dash :ensure t)
-  (leaf s :ensure t)
-  (leaf editorconfig :ensure t)
-  (defvar copilot-mode-map)
-  (defvar copilot-node-executable "~/.asdf/shims/node")
-  (defun my/copilot-tab ()
-    (interactive)
-    (or (copilot-accept-completion)
-        (indent-for-tab-command)))
-  (with-eval-after-load 'copilot
-    (define-key copilot-mode-map (kbd "<tab>") #'my/copilot-tab)))
+;; (leaf copilot
+;;   :el-get (copilot :type github :pkgname "copilot-emacs/copilot.el")
+;;   :hook (prog-mode . copilot-mode)
+;;   :config
+;;   (leaf jsonrpc :ensure t)
+;;   (leaf dash :ensure t)
+;;   (leaf s :ensure t)
+;;   (leaf editorconfig :ensure t)
+;;   (defvar copilot-mode-map)
+;;   (defvar copilot-node-executable "~/.asdf/shims/node")
+;;   (defun my/copilot-tab ()
+;;     (interactive)
+;;     (or (copilot-accept-completion)
+;;         (indent-for-tab-command)))
+;;   (with-eval-after-load 'copilot
+;;     (define-key copilot-mode-map (kbd "<tab>") #'my/copilot-tab)))
+
+;; llm
+(leaf ellama
+  :ensure t
+  :custom
+  (ellama-major-mode . 'markdown-mode)
+  (ellama-naming-scheme . 'ellama-generate-name-by-time)
+  (ellama-provider . 'openai)
+  (ellama-openai-key . (getenv "OPENAI_API_KEY"))
+  (ellama-language . "日本語")
+  (ellama-openai-model . "gpt-4-turbo-preview"))
 
 ;; enhance completion and search
 (leaf ivy

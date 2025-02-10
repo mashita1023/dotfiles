@@ -1,17 +1,6 @@
 if status is-interactive
 
 # brew
-set -U fish_user_paths /usr/bin $fish_user_paths
-set -U fish_user_paths /usr/local/bin $fish_user_paths
-set -U fish_user_paths /bin $fish_user_paths
-set -U fish_user_paths /opt/homebrew/sbin $fish_user_paths
-set -U fish_user_paths /opt/homebrew/bin $fish_user_paths
-set -gx PATH $HOME/.asdf/shims $PATH
-set -gx fish_user_paths /Users/toshichika-mashimo/.asdf/shims $fish_user_paths
-set -gx AQUA_ROOT_DIR "$(aqua root-dir)"
-fish_add_path $AQUA_ROOT_DIR/bin
-
-# brew
 eval (/opt/homebrew/bin/brew shellenv)
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
@@ -20,15 +9,8 @@ eval (/opt/homebrew/bin/brew shellenv)
 
 set -U fish_user_paths /Users/toshichika-mashimo/.asdf/shims/ruby $fish_user_paths
 
-# lima
-set -x DOCKER_HOST unix://$HOME/.lima/docker/sock/docker.sock
-
 # asdf
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
-
-# mysql
-fish_add_path "$(brew --prefix mysql@8.0)/bin"
-fish_add_path "$(brew --prefix mysql-client@8.0)/bin"
 
 # tmux
    if test -z $TMUX
@@ -91,9 +73,6 @@ set -U FZF_REVERSE_ISEARCH_OPTS "--reverse --height=100%"
 #function fish_user_key_bindings
 #  bind \cc ghq_fzf_repo
 #end
-
-# goenv
-fish_add_path $(go env GOPATH)/bin
 
 # poetry
 #set -x PATH $PATH:$HOME/.local/bin
