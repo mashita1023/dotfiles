@@ -60,6 +60,9 @@ projectile-bookmarks.eld
 ## undo-tree
 .leaf.d/backup
 
+## ellama-session
+.leaf.d/ellama-sessions
+
 # OTHER
 ## Unnecessary
 .DS_Store

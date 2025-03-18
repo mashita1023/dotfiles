@@ -12,6 +12,9 @@ set -U fish_user_paths /Users/toshichika-mashimo/.asdf/shims/ruby $fish_user_pat
 # asdf
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
+# direnv
+eval (direnv hook fish)
+
 # tmux
    if test -z $TMUX
        tmux new-session -d -s 'work'

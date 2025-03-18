@@ -230,8 +230,14 @@
   (highlight-indent-guides-character . ?\|)
   :hook
   (prog-mode-hook . highlight-indent-guides-mode))
+
+;; icon
 (leaf all-the-icons
   :ensure t)
+(leaf all-the-icons-dired
+  :ensure t
+  :hook (dired-mode . all-the-icons-dired-mode)
+)
 
 (leaf highlight-defined
   :ensure t)
@@ -244,21 +250,46 @@
 (leaf neotree
   :ensure t
   :bind ("C-o" . neotree-toggle)
+  :defvar (neo-show-hidden-files
+           neo-keymap-style
+           neo-smart-open
+           neo-window-width
+           neo-window-fixed-size
+           neo-theme)
   :config
-  ;; なぜかsetqじゃないといけないのでwarningは無視する
-  (setq neo-show-hidden-files t)
-  (setq neo-keymap-style 'concise)
-  (setq neo-smart-open t)
-  (setq neo-window-fixed-size nil))
+  (setq neo-show-hidden-files t
+        neo-keymap-style 'concise
+        neo-smart-open t
+        neo-window-width 30
+        neo-window-fixed-size nil
+        neo-theme 'icons))
 
-;; theme
-(leaf doom-themes
+;; dired
+(leaf dired
+  :config
+  ;; 先にディレクトリを表示
+  (setq dired-listing-switches "-al")
+  ;; ファイルサイズをいい感じに
+  (setq dired-ls-F-marks-symlinks t)
+  ;; ディレクトリの再帰系
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
+  ;; デフォルトをバッファで開くようにする
+  (setq dired-kill-when-opening-new-dired-buffer t))
+
+(leaf dracula-theme
   :ensure t
   :config
-  (load-theme 'doom-dracula t)
-  (doom-themes-visual-bell-config)
-  (doom-themes-neotree-config)
-  (doom-themes-org-config))
+  (load-theme 'dracula t)
+
+  ;; font
+  (set-face-attribute 'default nil
+                      :family "Hack Nerd Font Mono"
+                      :height 120)
+  ;; Jpn-font
+  (set-fontset-font t 'japanese-jisx0208
+                    (font-spec :family "Hiragino Sans")))
+
 
 ;; cursor can be multiple
 (leaf multiple-cursors
@@ -335,13 +366,23 @@
 ;; llm
 (leaf ellama
   :ensure t
-  :custom
-  (ellama-major-mode . 'markdown-mode)
-  (ellama-naming-scheme . 'ellama-generate-name-by-time)
-  (ellama-provider . 'openai)
-  (ellama-openai-key . (getenv "OPENAI_API_KEY"))
-  (ellama-language . "日本語")
-  (ellama-openai-model . "gpt-4-turbo-preview"))
+  :require (llm llm-openai)
+  :custom (llm-warn-on-nonfree . nil)
+  :defvar (ellama-major-mode
+           ellama-naming-scheme
+           ellama-provider
+           ellama-openai-key
+           ellama-language
+           ellama-openai-model
+           ellama-keymap-prefix)
+  :defun make-llm-openai
+  :config
+  (setq ellama-major-mode 'markdown-mode
+        ellama-naming-scheme 'ellama-generate-name-by-time
+        ellama-provider (make-llm-openai :key (getenv "OPENAI_API_KEY"))
+        ellama-language "Japanese"
+        ellama-openai-model "gpt-4o")
+        ellama-keymap-prefix "C-c l")
 
 ;; enhance completion and search
 (leaf ivy
@@ -360,6 +401,7 @@
     (leaf swiper
       :ensure t
       :bind ("C-s" . swiper)
+      :defvar swiper-include-line-number-in-search
       :config
       (setq swiper-include-line-number-in-search t))
     ;; find-file
@@ -394,14 +436,15 @@
 ;; ripgrep
 (leaf rg
   :ensure t
-  )
+  :config
+  (rg-enable-default-bindings))
 
 ;; color display
 (leaf rainbow-mode
   :ensure t
   :leaf-defer t
   :hook
-  (typescript-mode . rainbow-mode))
+  (tsx-ts-mode . rainbow-mode))
 
 ;; editorconifg
 (leaf editorconfig
@@ -458,14 +501,17 @@
                                         ;  )
 (leaf eglot
   :ensure t
-  :defvar eglot-server-programs
+  :defvar ((eglot-server-programs)
+           (eglot-stay-out-of))
   :hook
-  (ruby-mode-hook . eglot-ensure)
-  (go-mode-hook . eglot-ensure)
+  ((ruby-ts-mode-hook . eglot-ensure)
+   (go-mode-hook . eglot-ensure)
+   (eglot-managed-mode . company-mode))
   :config
+  (setq eglot-stay-out-of '(yasnippet))
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
-                 `(ruby-mode "ruby-lsp")))
+                 `(ruby-ts-mode "bundle" "exec" "ruby-lsp")))
   )
 
 ;; typescript
@@ -478,31 +524,35 @@
 
 (leaf typescript-mode
   :ensure t
+  :require (flycheck treesit)
   :config
-  (font-lock-mode)
-  (flycheck-add-mode javascript-eslint 'typescript-mode)
-  (flycheck-add-mode javascript-eslint 'tsx-ts-mode)
+  (flycheck-add-mode 'javascript-eslint 'typescript-mode)
+  (flycheck-add-mode 'javascript-eslint 'tsx-ts-mode)
   :mode (("\\.ts\\'" . typescript-mode)
          ("\\.tsx\\'" . tsx-ts-mode)))
 
 (leaf treesit
+  :defvar treesit-language-source-alist
   :config
+  (add-to-list 'treesit-language-source-alist
+               '(ruby "https://github.com/tree-sitter/tree-sitter-ruby"))
   (defvar treesit-font-lock-level 4))
 
 (leaf treesit-auto
   :ensure t
-  :init
-  (require 'treesit-auto)
+  :require t
+  :defun global-treesit-auto-mode
+  :custom
+  (treesit-auto-install . t)
   :config
-  (global-treesit-auto-mode)
-  (defvar treesit-auto-install t))
-
-(defvar tree-sitter-major-mode-language-alist nil)
+  (global-treesit-auto-mode))
 
 (leaf tree-sitter
   :ensure t
   :hook ((typescript-ts-mode . tree-sitter-hl-mode)
-         (tsx-ts-mode . tree-sitter-hl-mode))
+         (tsx-ts-mode . tree-sitter-hl-mode)
+         (ruby-ts-mode . tree-sitter-hl-mode))
+  :defvar tree-sitter-major-mode-language-alist
   :config
   (global-tree-sitter-mode))
 
@@ -511,7 +561,9 @@
   :after tree-sitter
   :config
   (tree-sitter-require 'tsx)
-  (add-to-list 'tree-sitter-major-mode-language-alist '(tsx-ts-mode . tsx)))
+  (tree-sitter-require 'ruby)
+  (add-to-list 'tree-sitter-major-mode-language-alist '(tsx-ts-mode . tsx))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(ruby-ts-mode . ruby)))
 
 (leaf tide
   :ensure t
@@ -537,7 +589,7 @@
 (leaf ruby-mode
   :ensure t
   :custom (ruby-insert-encoding-magic-comment . nil)
-  :mode (("\\.rb\\'" . ruby-mode)))
+  :mode (("\\.rb\\'" . ruby-ts-mode)))
 
 ;(leaf rspec-mode
 ;  :ensure t
@@ -548,24 +600,24 @@
   :ensure t
   )
 
-;; markdown
-;(leaf markdown
-;  :config
-;  (leaf markdown-mode
-;    :ensure t
-;    :leaf-defer t
-;    :mode ("\\.md\\'" . gfm-mode)
-;    :custom
-;    (markdown-command . "github-markup")
-;    (markdown-command-needs-filename . t))
-;  (leaf markdown-preview-mode
-;  :ensure t)
-; )
+; markdown
+(leaf markdown
+  :config
+  (leaf markdown-mode
+    :ensure t
+    :leaf-defer t
+    :mode ("\\.md\\'" . gfm-mode)
+    :custom
+    (markdown-command . "github-markup")
+    (markdown-command-needs-filename . t))
+  (leaf markdown-preview-mode
+  :ensure t)
+ )
 
 ;; dockerfile
-;(leaf dockerfile-mode
-;  :ensure t
-;  :mode ("\\Dockerfile\\'" . dockerfile-mode))
+(leaf dockerfile-mode
+  :ensure t
+  :mode ("\\Dockerfile\\'" . dockerfile-mode))
 
 ;; dart
 ;(leaf dart-mode
