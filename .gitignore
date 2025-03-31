@@ -63,6 +63,9 @@ projectile-bookmarks.eld
 ## ellama-session
 .leaf.d/ellama-sessions
 
+## tree-sitter
+.leaf.d/tree-sitter
+
 # OTHER
 ## Unnecessary
 .DS_Store
