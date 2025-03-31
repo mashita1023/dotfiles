@@ -38,10 +38,17 @@ install_packages() {
         echo "apt パッケージをインストールしています..."
         sudo apt update
         sudo apt install -y git tmux fish curl wget zsh emacs
+	sudo apt install -y build-essential curl wget git unzip p7zip-full
+	sudo apt install -y libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
+	sudo apt install -y libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
       # Fedora/RedHat系
       elif [ -f /etc/redhat-release ]; then
         echo "dnf パッケージをインストールしています..."
         sudo dnf install -y git tmux fish curl wget zsh emacs
+        sudo yum -y groupinstall "Development Tools"
+	sudo yum -y install curl wget git unzip p7zip
+	sudo yum -y install openssl-devel zlib-devel bzip2-devel readline-devel sqlite-devel 
+	sudo yum -y install xz-devel tk-devel libffi-devel
       # Arch Linux
       elif [ -f /etc/arch-release ]; then
         echo "pacman パッケージをインストールしています..."

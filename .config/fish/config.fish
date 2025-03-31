@@ -12,6 +12,9 @@ set -U fish_user_paths /Users/toshichika-mashimo/.asdf/shims/ruby $fish_user_pat
 # asdf
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
+# mise
+mise activate fish | source
+
 # direnv
 eval (direnv hook fish)
 
