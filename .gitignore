@@ -21,6 +21,11 @@ tramp
 
 ## elpa packages
 .leaf.d/elpa/
+.emacs.d/el-get/
+
+## cache
+.emacs.d/.cache/
+.emacs.d/eshell/
 
 ## reftex files
 *.rel

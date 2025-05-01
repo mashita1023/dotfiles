@@ -66,6 +66,7 @@ symbolic_file Brewfile
 symbolic_file .config/git/ignore
 symbolic_file .config/git/config
 symbolic_file .config/tmux/tmux.conf
+symbolic_file .zshrc
 symbolic_dir .config/env
 symbolic_dir .leaf.d .emacs.d
 symbolic_dir .lima
