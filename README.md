@@ -11,6 +11,7 @@ $ aqua i
 # private repository 周り
 
 ```sh
+$ gh auth login
 # private repository にアクセスできるようにしておく
 $ git submodule update --init --recursive
 $ ~/dotfiles/symbolic_private.sh
