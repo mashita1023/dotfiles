@@ -28,6 +28,9 @@ fish_add_path $(go env GOPATH)/bin
 fish_add_path "$(brew --prefix mysql@8.0)/bin"
 fish_add_path "$(brew --prefix mysql-client@8.0)/bin"
 
+# tmux
+set -x TMUX_PLUGIN_MANAGER_PATH $HOME/.config/tmux/plugins/
+
 # read secrets
 if test -f $HOME/.config/env/secrets.gpg
    ## OpenAI

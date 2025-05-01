@@ -4,3 +4,6 @@
 [submodule "memos"]
 	path = memos
 	url = https://github.com/mashita1023/memos.git
+[submodule ".config/tmux/plugins/tpm"]
+	path = .config/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm

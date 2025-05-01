@@ -57,7 +57,6 @@ symbolic_dir () {
 create_dir .config/git
 create_dir .config/fish
 create_dir .config/fish/functions
-create_dir .config/tmux
 
 # create symbolic link
 symbolic_file .config/fish/config.fish
@@ -65,9 +64,9 @@ symbolic_file .config/fish/fish_plugins
 symbolic_file Brewfile
 symbolic_file .config/git/ignore
 symbolic_file .config/git/config
-symbolic_file .config/tmux/tmux.conf
 symbolic_file .zshrc
 symbolic_dir .config/env
+symbolic_dir .config/tmux
 symbolic_dir .leaf.d .emacs.d
 symbolic_dir .lima
 
