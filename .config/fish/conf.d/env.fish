@@ -9,8 +9,12 @@ fish_add_path /bin
 fish_add_path /opt/homebrew/sbin
 fish_add_path /opt/homebrew/bin
 
+# mise
+mise activate fish | source
+fish_add_path $HOME/.local/share/mise/shims
+
 # asdf
-fish_add_path $HOME/.asdf/shims
+# fish_add_path $HOME/.asdf/shims
 
 # aqua
 set -gx AQUA_ROOT_DIR "$(aqua root-dir)"
