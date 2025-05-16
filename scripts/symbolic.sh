@@ -69,6 +69,7 @@ symbolic_dir .config/env
 symbolic_dir .config/tmux
 symbolic_dir .leaf.d .emacs.d
 symbolic_dir .lima
+symbolic_dir .obsidian
 
 ln -sfn ~/dotfiles/.config/fish/my_functions/* ~/.config/fish/functions/
 
