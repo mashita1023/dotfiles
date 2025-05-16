@@ -7,3 +7,6 @@
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "dracula/iterm"]
+	path = dracula/iterm
+	url = https://github.com/dracula/iterm.git

@@ -33,6 +33,23 @@ $ gh auth login
 
 ```
 
+# Docker 周り
+lima で動いています。
+macの場合buildxが必要なので以下を行うこと
+
+``` fish
+$ brew install docker-buildx
+$ mkdir -p ~/.docker/cli-plugins
+$ ln -sfn $(which docker-buildx) ~/.docker/cli-plugins/docker-buildx
+$ docker buildx version
+```
+
+# language server
+
+``` fish
+$ go install golang.org/x/tools/gopls@latest
+```
+
 # caskで手動でいろいろするもの
 - bitwarden
 - gifity
