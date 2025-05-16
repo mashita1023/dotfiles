@@ -39,3 +39,6 @@ set -x TMUX_PLUGIN_MANAGER_PATH $HOME/.config/tmux/plugins/
 if test -f $HOME/.config/env/secrets.gpg
    ## OpenAI
 end
+
+# ONELOGIN
+set -x ONELOGIN_MFA_IP_ADDRESS $(curl -SsL http://checkip.amazonaws.com/)
