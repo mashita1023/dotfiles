@@ -1,11 +1,13 @@
 [user]
 	name = t.mashimo
 	email = 39459987+mashita1023@users.noreply.github.com
+	signingkey = ~/.ssh/id_ed25519.pub
 [core]
 	editor = emacs -nw
 	ignorecase = false
 	quotepath = false
 	autocrlf = false
+	hooksPath = /Users/toshichika-mashimo/.git-hooks
 [color]
 	ui = true
 	diff = auto
@@ -37,3 +39,7 @@
 	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 [url "git@github.com:"]
 	insteadOf = https://github.com
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh

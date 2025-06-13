@@ -19,7 +19,8 @@ mise activate fish | source
 eval (direnv hook fish)
 
 # tmux
-   if test -z $TMUX
+   # VSCode内ではtmuxを起動しない
+   if test -z $TMUX; and test -z $DISABLE_AUTO_TMUX; and test -z $VSCODE_INJECTION; and test "$TERM_PROGRAM" != "vscode"
        tmux new-session -d -s 'work'
        tmux new-session -d -s 'mine'
        tmux new-session -d -s 'cfo'

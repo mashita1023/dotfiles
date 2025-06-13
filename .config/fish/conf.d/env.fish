@@ -2,6 +2,11 @@
 ## 1. conf.d内のアルファベット順に呼び出しされる
 ## 2. config.fish が呼び出される
 
+# default setting
+set -x EDITOR emacs
+set -x VISUAL emacs
+set -x PAGER less
+
 # brew
 fish_add_path /usr/bin
 fish_add_path /usr/local/bin
